@@ -10,6 +10,7 @@ python = "^3.11"
 flask = "^2.3.3"
 black = "^23.9.1"
 python-dotenv = "^1.0.0"
+flask-smorest = "^0.42.1"
 
 
 [build-system]
