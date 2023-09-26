@@ -8,6 +8,7 @@ from resources.user import blp as UserBlueprint
 from db import db
 from flask_jwt_extended import JWTManager
 from blocklist import BLOCKLIST
+from flask_migrate import Migrate
 
 
 def create_app(db_url=None):
@@ -27,7 +28,7 @@ def create_app(db_url=None):
     )
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
-
+    migrate = Migrate(app,db)
     api = Api(app)
 
     app.config["JWT_SECRET_KEY"] = "240225019473185560064707672988803951925"
@@ -111,9 +112,6 @@ def create_app(db_url=None):
             "description": "Your refresh-JWT goes here. Prefix with 'Bearer '",
         },
     )
-
-    with app.app_context():
-        db.create_all()
 
     api.register_blueprint(StoreBlueprint)
     api.register_blueprint(ItemBlueprint)
